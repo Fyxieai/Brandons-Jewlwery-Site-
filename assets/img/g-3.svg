@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" preserveAspectRatio="xMidYMid slice"><defs>
+  <radialGradient id="bg" cx="50.0%" cy="30.0%" r="78%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+    <stop offset="42%" stop-color="#FFFFFF"/>
+    <stop offset="100%" stop-color="#E8E4DC"/>
+  </radialGradient>
+  <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#8A6C2F"/>
+    <stop offset="18%" stop-color="#C6A15B"/>
+    <stop offset="38%" stop-color="#F0E0B4"/>
+    <stop offset="55%" stop-color="#C6A15B"/>
+    <stop offset="74%" stop-color="#8A6C2F"/>
+    <stop offset="90%" stop-color="#A8843F"/>
+    <stop offset="100%" stop-color="#8A6C2F"/>
+  </linearGradient>
+  <linearGradient id="metalV" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#F0E0B4"/>
+    <stop offset="30%" stop-color="#C6A15B"/>
+    <stop offset="62%" stop-color="#8A6C2F"/>
+    <stop offset="100%" stop-color="#A8843F"/>
+  </linearGradient>
+  <linearGradient id="stone" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+    <stop offset="45%" stop-color="#D8E3EA" stop-opacity="0.75"/>
+    <stop offset="100%" stop-color="#8FA3B0" stop-opacity="0.65"/>
+  </linearGradient>
+  <linearGradient id="fade" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#DED8CD" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#DED8CD" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="9.6"/>
+  </filter>
+  <filter id="cast" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="9.6" stdDeviation="11.2"
+      flood-color="#000000" flood-opacity="0.32"/>
+  </filter>
+  <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+    <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.2"/>
+  </radialGradient>
+</defs><rect width="800" height="800" fill="url(#bg)"/><g transform="translate(400.0,400.0) scale(1.35) translate(-400.0,-400.0)"><g filter="url(#cast)"><line x1="317.2" y1="257.2" x2="349.4" y2="335.4" stroke="url(#metalV)" stroke-width="10.1" stroke-linecap="round"/><line x1="482.8" y1="257.2" x2="450.6" y2="335.4" stroke="url(#metalV)" stroke-width="10.1" stroke-linecap="round"/><g transform="translate(400.0,248.0)"><polygon points="-92.0,-25.8 -57.0,-79.1 57.0,-79.1 92.0,-25.8 0,57.0" fill="url(#stone)" stroke="#F0E0B4" stroke-width="2.8"/><polyline points="-55.2,-25.8 55.2,-25.8" fill="none" stroke="#FFFFFF" stroke-width="2.8" opacity="0.8"/><polyline points="-55.2,-25.8 0,57.0 55.2,-25.8" fill="none" stroke="#FFFFFF" stroke-width="2.3" opacity="0.55"/><polyline points="0,-79.1 0,57.0" fill="none" stroke="#FFFFFF" stroke-width="1.8" opacity="0.4"/></g><ellipse cx="400.0" cy="432.0" rx="160.0" ry="163.2" fill="none" stroke="url(#metal)" stroke-width="48.0"/><ellipse cx="400.0" cy="432.0" rx="169.6" ry="172.8" fill="none" stroke="#F0E0B4" stroke-width="3.2" opacity="0.45"/></g><ellipse cx="400.0" cy="632.0" rx="240.0" ry="35.2" fill="url(#fade)" filter="url(#soft)" opacity="0.9"/></g><rect width="800" height="800" fill="url(#vig)"/><rect width="800" height="800" filter="url(#grain)" opacity="0.04"/></svg>

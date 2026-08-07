@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200" role="img" preserveAspectRatio="xMidYMid slice"><defs>
+  <radialGradient id="bg" cx="50.0%" cy="30.0%" r="78%">
+    <stop offset="0%" stop-color="#F6EEE0" stop-opacity="1"/>
+    <stop offset="42%" stop-color="#E9E0D2"/>
+    <stop offset="100%" stop-color="#CBBCA5"/>
+  </radialGradient>
+  <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#8A6C2F"/>
+    <stop offset="18%" stop-color="#C6A15B"/>
+    <stop offset="38%" stop-color="#F0E0B4"/>
+    <stop offset="55%" stop-color="#C6A15B"/>
+    <stop offset="74%" stop-color="#8A6C2F"/>
+    <stop offset="90%" stop-color="#A8843F"/>
+    <stop offset="100%" stop-color="#8A6C2F"/>
+  </linearGradient>
+  <linearGradient id="metalV" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#F0E0B4"/>
+    <stop offset="30%" stop-color="#C6A15B"/>
+    <stop offset="62%" stop-color="#8A6C2F"/>
+    <stop offset="100%" stop-color="#A8843F"/>
+  </linearGradient>
+  <linearGradient id="stone" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+    <stop offset="45%" stop-color="#D8E3EA" stop-opacity="0.75"/>
+    <stop offset="100%" stop-color="#8FA3B0" stop-opacity="0.65"/>
+  </linearGradient>
+  <linearGradient id="fade" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#BFAF97" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#BFAF97" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="14.4"/>
+  </filter>
+  <filter id="cast" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="14.4" stdDeviation="16.8"
+      flood-color="#000000" flood-opacity="0.32"/>
+  </filter>
+  <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+    <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.2"/>
+  </radialGradient>
+</defs><rect width="900" height="1200" fill="url(#bg)"/><g transform="translate(450.0,600.0) scale(1.0) translate(-450.0,-600.0)"><g filter="url(#cast)"><path d="M330.0,398.0 L357.1,92.2 Q450.0,49.7 542.9,92.2 L570.0,398.0 Z" fill="url(#metalV)" opacity="0.92"/><path d="M330.0,754.0 L357.1,1059.8 Q450.0,1102.3 542.9,1059.8 L570.0,754.0 Z" fill="url(#metalV)" opacity="0.92"/><line x1="353.2" y1="363.1" x2="546.8" y2="363.1" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="341.6" y1="297.4" x2="558.4" y2="297.4" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="330.0" y1="231.6" x2="570.0" y2="231.6" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="318.4" y1="165.8" x2="581.6" y2="165.8" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="353.2" y1="788.9" x2="546.8" y2="788.9" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="341.6" y1="854.6" x2="558.4" y2="854.6" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="330.0" y1="920.4" x2="570.0" y2="920.4" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><line x1="318.4" y1="986.2" x2="581.6" y2="986.2" stroke="#6E5626" stroke-width="6.8" opacity="0.5"/><rect x="639.6" y="556.6" width="25.2" height="38.7" rx="7.7" fill="url(#metalV)"/><circle cx="450.0" cy="576.0" r="193.5" fill="url(#metal)"/><circle cx="450.0" cy="576.0" r="166.4" fill="#141416"/><circle cx="450.0" cy="576.0" r="166.4" fill="none" stroke="#6E5626" stroke-width="3.9"/><line x1="450.0" y1="440.6" x2="450.0" y2="421.2" stroke="#F0E0B4" stroke-width="9.7" stroke-linecap="round"/><line x1="517.7" y1="458.7" x2="527.4" y2="441.9" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="567.3" y1="508.3" x2="584.1" y2="498.6" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="585.5" y1="576.0" x2="604.8" y2="576.0" stroke="#F0E0B4" stroke-width="9.7" stroke-linecap="round"/><line x1="567.3" y1="643.7" x2="584.1" y2="653.4" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="517.7" y1="693.3" x2="527.4" y2="710.1" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="450.0" y1="711.5" x2="450.0" y2="730.8" stroke="#F0E0B4" stroke-width="9.7" stroke-linecap="round"/><line x1="382.3" y1="693.3" x2="372.6" y2="710.1" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="332.7" y1="643.7" x2="315.9" y2="653.4" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="314.6" y1="576.0" x2="295.2" y2="576.0" stroke="#F0E0B4" stroke-width="9.7" stroke-linecap="round"/><line x1="332.7" y1="508.3" x2="315.9" y2="498.6" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="382.3" y1="458.7" x2="372.6" y2="441.9" stroke="#F0E0B4" stroke-width="5.4" stroke-linecap="round"/><line x1="450.0" y1="576.0" x2="515.8" y2="518.0" stroke="#F0E0B4" stroke-width="8.7" stroke-linecap="round"/><line x1="450.0" y1="576.0" x2="391.9" y2="475.4" stroke="#F0E0B4" stroke-width="6.2" stroke-linecap="round"/><circle cx="450.0" cy="576.0" r="8.7" fill="#F0E0B4"/><circle cx="450.0" cy="657.3" r="31.0" fill="none" stroke="#6E5626" stroke-width="3.5" opacity="0.8"/><path d="M295.2,518.0 A166.4,166.4 0 0 1 430.6,411.5 L343.6,556.6 Z" fill="#FFFFFF" opacity="0.07"/></g><ellipse cx="450.0" cy="1137.2" rx="232.2" ry="42.6" fill="url(#fade)" filter="url(#soft)" opacity="0.9"/></g><rect width="900" height="1200" fill="url(#vig)"/><rect width="900" height="1200" filter="url(#grain)" opacity="0.04"/></svg>

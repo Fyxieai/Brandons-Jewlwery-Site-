@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" preserveAspectRatio="xMidYMid slice"><defs>
+  <radialGradient id="bg" cx="44.0%" cy="30.0%" r="78%">
+    <stop offset="0%" stop-color="#3A3226" stop-opacity="0.55"/>
+    <stop offset="42%" stop-color="#141416"/>
+    <stop offset="100%" stop-color="#08080A"/>
+  </radialGradient>
+  <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#6E5626"/>
+    <stop offset="18%" stop-color="#C6A15B"/>
+    <stop offset="38%" stop-color="#F0E0B4"/>
+    <stop offset="55%" stop-color="#C6A15B"/>
+    <stop offset="74%" stop-color="#6E5626"/>
+    <stop offset="90%" stop-color="#A8843F"/>
+    <stop offset="100%" stop-color="#6E5626"/>
+  </linearGradient>
+  <linearGradient id="metalV" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#F0E0B4"/>
+    <stop offset="30%" stop-color="#C6A15B"/>
+    <stop offset="62%" stop-color="#6E5626"/>
+    <stop offset="100%" stop-color="#A8843F"/>
+  </linearGradient>
+  <linearGradient id="stone" x1="20%" y1="0%" x2="80%" y2="100%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+    <stop offset="45%" stop-color="#D8E3EA" stop-opacity="0.75"/>
+    <stop offset="100%" stop-color="#8FA3B0" stop-opacity="0.65"/>
+  </linearGradient>
+  <linearGradient id="fade" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#0B0B0D" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#0B0B0D" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="18.0"/>
+  </filter>
+  <filter id="cast" x="-40%" y="-40%" width="180%" height="180%">
+    <feDropShadow dx="0" dy="18.0" stdDeviation="21.0"
+      flood-color="#000000" flood-opacity="0.55"/>
+  </filter>
+  <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+    <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.62"/>
+  </radialGradient>
+</defs><rect width="1200" height="1500" fill="url(#bg)"/><g transform="translate(600.0,750.0) scale(1.0) translate(-600.0,-750.0)"><path d="M600.0,228.0 L1163.8,433.2" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L1108.8,546.0" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L1031.6,644.8" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L935.5,725.4" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L824.8,784.3" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L704.2,818.9" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L579.1,827.6" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L454.8,810.2" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L337.0,767.3" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L230.6,700.8" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L140.4,613.7" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L70.2,509.7" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><path d="M600.0,228.0 L23.2,393.4" stroke="#C6A15B" stroke-width="3.6" opacity="0.18"/><g filter="url(#cast)"><circle cx="528.0" cy="756.0" r="186.0" fill="none" stroke="url(#metal)" stroke-width="31.6"/><circle cx="528.0" cy="756.0" r="167.4" fill="#FFFFFF" opacity="0.05"/><path d="M661.9,889.9 L840.0,1068.0" stroke="url(#metalV)" stroke-width="27.9" stroke-linecap="round"/><g transform="translate(960.0,372.0) rotate(28)"><path d="M0,0 L14.4,408.0" stroke="url(#metalV)" stroke-width="13.2" stroke-linecap="round"/><path d="M31.2,0 L24.0,408.0" stroke="url(#metalV)" stroke-width="13.2" stroke-linecap="round"/></g><polygon points="822.0,1140.0 858.0,1083.6 906.0,1107.6 876.0,1164.0" fill="url(#stone)" stroke="#F0E0B4" stroke-width="3.6" opacity="0.9"/></g><ellipse cx="600.0" cy="1212.0" rx="360.0" ry="42.0" fill="url(#fade)" filter="url(#soft)" opacity="0.9"/></g><rect width="1200" height="1500" fill="url(#vig)"/><rect width="1200" height="1500" filter="url(#grain)" opacity="0.055"/></svg>
