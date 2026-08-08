@@ -89,6 +89,22 @@ and nothing in the CSS needs to change:
 Keep the mix the brief calls for: crisp studio close-ups on black, white or warm
 neutral, alternating with editorial lifestyle frames.
 
+## Single-file build
+
+`tools/build_standalone.py` packages the whole page — stylesheet, script, all 25
+images as data URIs and both webfonts as base64 `@font-face` rules — into
+`dist/index.html`. That file renders identically with **no network access at
+all**, which makes it the easy thing to email, drop on a USB stick or preview on
+a host that blocks external requests.
+
+```bash
+python3 tools/build_standalone.py           # reuses cached font subsets
+python3 tools/build_standalone.py --fonts   # re-download the font subsets
+```
+
+Re-run it after any change to `index.html`, the CSS, the JS or the imagery —
+`dist/index.html` is generated output, not a source file.
+
 ## Wiring it to a store
 
 The page is front-end only. Connect these to a backend or a headless commerce
@@ -120,6 +136,8 @@ index.html                     the page
 assets/css/styles.css          design system + all sections
 assets/js/main.js              behaviour
 assets/img/                    generated placeholder imagery
+dist/index.html                generated single-file build (see above)
 tools/generate_placeholders.py regenerates assets/img
+tools/build_standalone.py      bundles everything into dist/index.html
 tools/shots.py, tools/states.py screenshot + interaction checks (dev only)
 ```

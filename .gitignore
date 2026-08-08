@@ -1,0 +1,5 @@
+# downloaded webfont subsets, re-fetched by tools/build_standalone.py
+tools/.fontcache/
+
+# fragment build, only used for embedding previews
+dist/artifact.html
