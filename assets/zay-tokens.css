@@ -136,11 +136,6 @@ body {
   letter-spacing: 0.01em;
 }
 
-.header,
-.announcement-bar-section {
-  --color-border: 24, 24, 26;
-}
-
 .announcement-bar__message {
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
