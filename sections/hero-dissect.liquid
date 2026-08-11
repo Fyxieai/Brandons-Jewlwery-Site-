@@ -1,0 +1,284 @@
+{{ 'hero-dissect.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .hero-dissect {
+    --hd-track-vh: {{ section.settings.scroll_length }};
+  }
+{%- endstyle -%}
+
+<section
+  class="hero-dissect color-{{ section.settings.color_scheme }}"
+  id="hero-dissect-{{ section.id }}"
+  data-hero-dissect
+  style="--hd-piece-count: {{ section.blocks.size }};"
+>
+  <div class="hero-dissect__track">
+    <div class="hero-dissect__pin">
+      <div class="hero-dissect__bg" aria-hidden="true"></div>
+
+      <div class="hero-dissect__assembly" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'piece' -%}
+            {%- assign img = block.settings.image -%}
+            <div
+              class="hero-dissect__piece"
+              {{ block.shopify_attributes }}
+              style="
+                --hd-x: {{ block.settings.explode_x }}%;
+                --hd-y: {{ block.settings.explode_y }}%;
+                --hd-rot: {{ block.settings.explode_rotate }}deg;
+                --hd-scale: {{ block.settings.explode_scale | divided_by: 100.0 }};
+                --hd-order: {{ forloop.index0 }};
+                --hd-z: {{ block.settings.stack_order }};
+              "
+            >
+              {%- if img != blank -%}
+                {{
+                  img
+                  | image_url: width: 900
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: forloop.index0 == 0 ? 'high' : 'auto',
+                    sizes: '(min-width: 990px) 40vw, 70vw',
+                    widths: '300,450,600,900',
+                    class: 'hero-dissect__piece-img'
+                }}
+              {%- else -%}
+                <div class="hero-dissect__piece-placeholder">
+                  <span>{{ block.settings.label | default: 'Piece' }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="hero-dissect__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="zay-eyebrow hero-dissect__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="hero-dissect__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="hero-dissect__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        <div class="hero-dissect__actions">
+          {%- if section.settings.primary_cta_text != blank -%}
+            <a
+              href="{{ section.settings.primary_cta_link | default: '#' }}"
+              class="button button--primary"
+            >
+              {{ section.settings.primary_cta_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_cta_text != blank -%}
+            <a
+              href="{{ section.settings.secondary_cta_link | default: '#' }}"
+              class="button button--secondary"
+            >
+              {{ section.settings.secondary_cta_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="hero-dissect__scroll-cue" aria-hidden="true">
+        <span></span>
+        <p>Scroll</p>
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.video_url != blank or section.settings.video_file != blank -%}
+    <div class="hero-dissect__video zay-container">
+      <div class="hero-dissect__video-frame">
+        {%- if section.settings.video_file != blank -%}
+          {{ section.settings.video_file | video_tag: autoplay: false, loop: true, muted: true, controls: true }}
+        {%- elsif section.settings.video_url != blank -%}
+          {{ section.settings.video_url | external_video_tag }}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.video_caption != blank -%}
+        <p class="hero-dissect__video-caption">{{ section.settings.video_caption }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+<script src="{{ 'hero-dissect.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Hero — Dissect on Scroll",
+  "class": "section-hero-dissect",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Midnight" },
+        { "value": "scheme-2", "label": "Charcoal" },
+        { "value": "scheme-4", "label": "Charcoal (warm)" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Daytona, Reimagined"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every piece, considered."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A gold Rolex Daytona with a meteorite dial — sourced, authenticated, and presented the way it deserves."
+    },
+    {
+      "type": "range",
+      "id": "scroll_length",
+      "label": "Scroll length (vh)",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "default": 400,
+      "info": "How much scroll distance the piece takes to fully disassemble. Taller = slower, more dramatic."
+    },
+    {
+      "type": "header",
+      "content": "Primary action"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Button label",
+      "default": "Request or Reserve"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary action"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Button label",
+      "default": "Book a Call with Brandon"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Commercial video (optional, sits below the scroll piece)"
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Upload video"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Or paste video URL",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "video_caption",
+      "label": "Video caption",
+      "default": "The gold Daytona, meteorite dial — in motion."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "piece",
+      "name": "Watch piece",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Piece image (cut out, transparent background)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Placeholder label (shown until image is uploaded)",
+          "default": "Piece"
+        },
+        {
+          "type": "range",
+          "id": "stack_order",
+          "label": "Stack order (assembled state)",
+          "min": 1,
+          "max": 10,
+          "default": 5,
+          "info": "Higher sits on top when the watch is assembled."
+        },
+        {
+          "type": "range",
+          "id": "explode_x",
+          "label": "Exploded X offset (%)",
+          "min": -60,
+          "max": 60,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "explode_y",
+          "label": "Exploded Y offset (%)",
+          "min": -60,
+          "max": 60,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "explode_rotate",
+          "label": "Exploded rotation (deg)",
+          "min": -180,
+          "max": 180,
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "explode_scale",
+          "label": "Exploded scale (%)",
+          "min": 40,
+          "max": 160,
+          "default": 100
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero — Dissect on Scroll",
+      "blocks": [
+        { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -18 } },
+        { "type": "piece", "settings": { "label": "Dial (meteorite)", "stack_order": 8, "explode_x": 0, "explode_y": -32, "explode_rotate": 0, "explode_scale": 110 } },
+        { "type": "piece", "settings": { "label": "Bezel", "stack_order": 9, "explode_x": 34, "explode_y": -20, "explode_rotate": 24 } },
+        { "type": "piece", "settings": { "label": "Crystal", "stack_order": 10, "explode_x": 0, "explode_y": 0, "explode_rotate": 0, "explode_scale": 70 } },
+        { "type": "piece", "settings": { "label": "Crown", "stack_order": 4, "explode_x": 48, "explode_y": 10, "explode_rotate": 40 } },
+        { "type": "piece", "settings": { "label": "Hands", "stack_order": 7, "explode_x": -10, "explode_y": 8, "explode_rotate": -60, "explode_scale": 80 } },
+        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 14, "explode_scale": 90 } },
+        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -22, "explode_scale": 90 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,81 @@
+{{ 'zay-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="zay-section trust-strip color-{{ section.settings.color_scheme }}" style="padding-block: var(--zay-space-6, 3rem);">
+  <div class="zay-container">
+    <div class="trust-strip__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'item' -%}
+          <div class="trust-strip__item" {{ block.shopify_attributes }}>
+            <svg class="trust-strip__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'shield' -%}
+                  <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                {%- when 'lock' -%}
+                  <rect x="5" y="11" width="14" height="9" rx="1" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.3"/>
+                {%- else -%}
+                  <path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="3" y="4" width="18" height="16" rx="1" stroke="currentColor" stroke-width="1"/>
+              {%- endcase -%}
+            </svg>
+            <p class="trust-strip__label">{{ block.settings.label }}</p>
+            {%- if block.settings.detail != blank -%}
+              <p class="trust-strip__detail">{{ block.settings.detail }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "class": "section-trust-strip",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Midnight" },
+        { "value": "scheme-2", "label": "Charcoal" }
+      ],
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield (authentication)" },
+            { "value": "lock", "label": "Lock (discretion)" },
+            { "value": "check", "label": "Check (shipping)" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Authenticated & Verified" },
+        { "type": "text", "id": "detail", "label": "Detail" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust strip",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "shield", "label": "Authenticated & Verified", "detail": "Every piece checked before it reaches you." } },
+        { "type": "item", "settings": { "icon": "lock", "label": "Discreet Private Sales", "detail": "No pressure, no noise, no public record." } },
+        { "type": "item", "settings": { "icon": "check", "label": "Insured Shipping", "detail": "Fully insured, tracked, signature required." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

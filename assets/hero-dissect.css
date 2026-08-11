@@ -1,0 +1,247 @@
+/* Hero — Dissect on Scroll
+   A pinned viewport where watch pieces separate outward as the user scrolls
+   through a tall track. Headline/CTA are always visible and never depend on
+   scroll or JS — the dissection is a decorative layer on top of a working hero. */
+
+.hero-dissect {
+  --hd-progress: 0;
+  --hd-mobile-factor: 1;
+  position: relative;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.hero-dissect__track {
+  height: 100vh;
+  height: 100dvh;
+}
+
+@media (min-width: 750px) {
+  .hero-dissect__track {
+    height: calc(var(--hd-track-vh, 400) * 1vh);
+  }
+}
+
+.hero-dissect__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-dissect__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 30%, var(--zay-charcoal-warm, #171208) 0%, var(--zay-black, #0b0a08) 62%),
+    var(--zay-black, #0b0a08);
+}
+
+.hero-dissect__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 40% at 50% 100%, rgba(201, 162, 39, 0.08), transparent 70%);
+}
+
+.hero-dissect__assembly {
+  position: relative;
+  width: min(64vw, 640px);
+  aspect-ratio: 1 / 1;
+  z-index: 2;
+}
+
+@media (max-width: 749px) {
+  .hero-dissect__assembly {
+    width: 82vw;
+  }
+}
+
+.hero-dissect__piece {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 46%;
+  height: 46%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--hd-z, 1);
+  will-change: transform;
+  transform: translate(
+      calc(var(--hd-progress) * var(--hd-x) * var(--hd-mobile-factor)),
+      calc(var(--hd-progress) * var(--hd-y) * var(--hd-mobile-factor))
+    )
+    rotate(calc(var(--hd-progress) * var(--hd-rot)))
+    scale(calc(1 + (var(--hd-scale, 1) - 1) * var(--hd-progress)));
+  opacity: calc(1 - (var(--hd-progress) * 0));
+}
+
+.hero-dissect__piece-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.55));
+}
+
+.hero-dissect__piece-placeholder {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--zay-hairline-strong, rgba(236, 230, 214, 0.22));
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--zay-space-1, 0.5rem);
+}
+
+.hero-dissect__piece-placeholder span {
+  font-family: var(--font-body-family);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zay-ivory-muted, #a49c88);
+}
+
+.hero-dissect__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--zay-space-2, 1rem);
+  padding: 0 var(--zay-space-3, 1.5rem);
+  max-width: 46rem;
+  pointer-events: none;
+  margin-top: auto;
+  padding-bottom: var(--zay-space-12, 6rem);
+  animation: hero-dissect-rise 900ms var(--zay-ease, ease-out) both;
+}
+
+.hero-dissect__content > * {
+  pointer-events: auto;
+}
+
+@keyframes hero-dissect-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-dissect__eyebrow {
+  margin: 0;
+}
+
+.hero-dissect__heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight, 600);
+  font-size: var(--zay-text-hero);
+  line-height: 1.02;
+  color: var(--zay-ivory, #ece6d6);
+}
+
+.hero-dissect__subheading {
+  margin: 0;
+  max-width: 34rem;
+  font-family: var(--font-body-family);
+  font-size: var(--zay-text-lg);
+  line-height: 1.6;
+  color: var(--zay-ivory-muted, #a49c88);
+}
+
+.hero-dissect__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zay-space-2, 1rem);
+  margin-top: var(--zay-space-2, 1rem);
+}
+
+.hero-dissect__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--zay-space-3, 1.5rem);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: calc(1 - (var(--hd-progress) * 6));
+  transition: opacity 200ms linear;
+}
+
+.hero-dissect__scroll-cue span {
+  width: 1px;
+  height: 2.25rem;
+  background: linear-gradient(to bottom, var(--zay-gold, #c9a227), transparent);
+}
+
+.hero-dissect__scroll-cue p {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--zay-ivory-muted, #a49c88);
+}
+
+.hero-dissect__video {
+  position: relative;
+  z-index: 2;
+  padding-block: var(--zay-space-8, 4rem);
+}
+
+.hero-dissect__video-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: var(--zay-border, 1px solid rgba(236, 230, 214, 0.12));
+}
+
+.hero-dissect__video-frame video,
+.hero-dissect__video-frame iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-dissect__video-caption {
+  margin: var(--zay-space-2, 1rem) 0 0;
+  font-family: var(--font-body-family);
+  font-size: var(--zay-text-sm);
+  color: var(--zay-ivory-muted, #a49c88);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-dissect__track {
+    height: auto;
+  }
+
+  .hero-dissect__pin {
+    position: relative;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .hero-dissect__piece {
+    transform: none !important;
+  }
+
+  .hero-dissect__content {
+    animation: none;
+  }
+}

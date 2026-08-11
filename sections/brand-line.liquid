@@ -1,0 +1,41 @@
+{{ 'zay-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="zay-section brand-line-section color-{{ section.settings.color_scheme }}">
+  <div class="zay-container">
+    <div class="brand-line">
+      {%- if section.settings.quote != blank -%}
+        <p class="brand-line__quote">{{ section.settings.quote }}</p>
+      {%- endif -%}
+      {%- if section.settings.attribution != blank -%}
+        <p class="brand-line__attribution">{{ section.settings.attribution }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand line",
+  "class": "section-brand-line",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Midnight" },
+        { "value": "scheme-2", "label": "Charcoal" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Quote",
+      "default": "<p>The edge isn't luck — it's <em>access</em>. Prices that beat the market, through a real dealer network.</p>"
+    },
+    { "type": "text", "id": "attribution", "label": "Attribution", "default": "Brandon, Zay Jewelers" }
+  ],
+  "presets": [{ "name": "Brand line" }]
+}
+{% endschema %}

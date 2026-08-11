@@ -1,0 +1,138 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-dissect",
+      "blocks": {
+        "case": { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -18, "explode_scale": 100 } },
+        "dial": { "type": "piece", "settings": { "label": "Dial (meteorite)", "stack_order": 8, "explode_x": 0, "explode_y": -32, "explode_rotate": 0, "explode_scale": 110 } },
+        "bezel": { "type": "piece", "settings": { "label": "Bezel", "stack_order": 9, "explode_x": 34, "explode_y": -20, "explode_rotate": 24, "explode_scale": 100 } },
+        "crystal": { "type": "piece", "settings": { "label": "Crystal", "stack_order": 10, "explode_x": 0, "explode_y": 0, "explode_rotate": 0, "explode_scale": 70 } },
+        "crown": { "type": "piece", "settings": { "label": "Crown", "stack_order": 4, "explode_x": 48, "explode_y": 10, "explode_rotate": 40, "explode_scale": 100 } },
+        "hands": { "type": "piece", "settings": { "label": "Hands", "stack_order": 7, "explode_x": -10, "explode_y": 8, "explode_rotate": -60, "explode_scale": 80 } },
+        "link1": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 14, "explode_scale": 90 } },
+        "link2": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -22, "explode_scale": 90 } }
+      },
+      "block_order": ["case", "dial", "bezel", "crystal", "crown", "hands", "link1", "link2"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "The Daytona, Reimagined",
+        "heading": "Every piece, considered.",
+        "subheading": "A gold Rolex Daytona with a meteorite dial — sourced, authenticated, and presented the way it deserves.",
+        "scroll_length": 400,
+        "primary_cta_text": "Request or Reserve",
+        "primary_cta_link": "/pages/source-a-watch",
+        "secondary_cta_text": "Book a Call with Brandon",
+        "secondary_cta_link": "/pages/book-a-call",
+        "video_caption": "The gold Daytona, meteorite dial — in motion."
+      }
+    },
+    "path_cards": {
+      "type": "path-cards",
+      "blocks": {
+        "reserve": {
+          "type": "path",
+          "settings": {
+            "eyebrow": "Sourced & High-Value",
+            "title": "Request or Reserve a Piece",
+            "copy": "Tell Brandon what you're after. Most serious pieces move by private request, not checkout.",
+            "link_text": "Start a request",
+            "link": "/pages/source-a-watch"
+          }
+        },
+        "call": {
+          "type": "path",
+          "settings": {
+            "eyebrow": "Direct & Discreet",
+            "title": "Book a Call with Brandon",
+            "copy": "High-value pieces close by phone and wire. Get on the calendar directly.",
+            "link_text": "Book a call",
+            "link": "/pages/book-a-call"
+          }
+        },
+        "shop": {
+          "type": "path",
+          "settings": {
+            "eyebrow": "Ready Now",
+            "title": "Shop In-Stock",
+            "copy": "Available pieces, ready to ship fully insured.",
+            "link_text": "Browse in-stock",
+            "link": "/collections/in-stock"
+          }
+        }
+      },
+      "block_order": ["reserve", "call", "shop"],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading": "Two ways to work with Brandon"
+      }
+    },
+    "trust": {
+      "type": "trust-strip",
+      "blocks": {
+        "auth": { "type": "item", "settings": { "icon": "shield", "label": "Authenticated & Verified", "detail": "Every piece checked before it reaches you." } },
+        "discreet": { "type": "item", "settings": { "icon": "lock", "label": "Discreet Private Sales", "detail": "No pressure, no noise, no public record." } },
+        "ship": { "type": "item", "settings": { "icon": "check", "label": "Insured Shipping", "detail": "Fully insured, tracked, signature required." } }
+      },
+      "block_order": ["auth", "discreet", "ship"],
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "A Few Pieces, Currently Available",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "1",
+        "padding_top": 96,
+        "padding_bottom": 60
+      }
+    },
+    "dealers": {
+      "type": "dealer-row",
+      "blocks": {
+        "d1": { "type": "dealer", "settings": { "name": "Gozo & Co" } },
+        "d2": { "type": "dealer", "settings": { "name": "Clark Avenue Jewelers" } },
+        "d3": { "type": "dealer", "settings": { "name": "Uncle Manny" } },
+        "d4": { "type": "dealer", "settings": { "name": "Benny the Jeweler" } },
+        "d5": { "type": "dealer", "settings": { "name": "Iceberg Jewelers" } },
+        "d6": { "type": "dealer", "settings": { "name": "Columbus" } },
+        "d7": { "type": "dealer", "settings": { "name": "Atlanta" } }
+      },
+      "block_order": ["d1", "d2", "d3", "d4", "d5", "d6", "d7"],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "eyebrow": "Trusted Across the Trade",
+        "heading": "The network behind every source",
+        "note": "Relationships built over years across the trade — access that shows up in the price."
+      }
+    },
+    "brand_line": {
+      "type": "brand-line",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "quote": "<p>The edge isn't luck — it's <em>access</em>. Prices that beat the market, through a real dealer network.</p>",
+        "attribution": "Brandon, Zay Jewelers"
+      }
+    }
+  },
+  "order": ["hero", "path_cards", "trust", "featured_collection", "dealers", "brand_line"]
+}

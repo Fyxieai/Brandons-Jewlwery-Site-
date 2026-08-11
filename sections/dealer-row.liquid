@@ -1,0 +1,72 @@
+{{ 'zay-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="zay-section dealer-row color-{{ section.settings.color_scheme }}">
+  <div class="zay-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="zay-section__head">
+        <p class="zay-eyebrow">{{ section.settings.eyebrow | default: 'Trusted Across the Trade' }}</p>
+        <h2 class="zay-section__heading">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <ul class="dealer-row__list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'dealer' -%}
+          <li {{ block.shopify_attributes }}>{{ block.settings.name }}</li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.note != blank -%}
+      <p class="dealer-row__note">{{ section.settings.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dealer row",
+  "class": "section-dealer-row",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Midnight" },
+        { "value": "scheme-2", "label": "Charcoal" }
+      ],
+      "default": "scheme-2"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Trusted Across the Trade" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The network behind every source" },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "Relationships built over years across the trade — access that shows up in the price."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "dealer",
+      "name": "Dealer",
+      "settings": [{ "type": "text", "id": "name", "label": "Name", "default": "Dealer Name" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dealer row",
+      "blocks": [
+        { "type": "dealer", "settings": { "name": "Gozo & Co" } },
+        { "type": "dealer", "settings": { "name": "Clark Avenue Jewelers" } },
+        { "type": "dealer", "settings": { "name": "Uncle Manny" } },
+        { "type": "dealer", "settings": { "name": "Benny the Jeweler" } },
+        { "type": "dealer", "settings": { "name": "Iceberg Jewelers" } },
+        { "type": "dealer", "settings": { "name": "Columbus" } },
+        { "type": "dealer", "settings": { "name": "Atlanta" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

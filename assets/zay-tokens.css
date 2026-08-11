@@ -1,0 +1,123 @@
+/* Zay Jewelers — design tokens
+   Brand: exclusive, quiet, expensive. Near-black + charcoal base, single gold accent, ivory text.
+   Editorial serif headlines (Cormorant), clean sans body (Montserrat). */
+
+:root {
+  /* ---- Color ---- */
+  --zay-black: #0b0a08;
+  --zay-charcoal: #16140f;
+  --zay-charcoal-warm: #171208;
+  --zay-ivory: #ece6d6;
+  --zay-ivory-muted: #a49c88;
+  --zay-gold: #c9a227;
+  --zay-gold-bright: #e0bc4a;
+  --zay-hairline: rgba(236, 230, 214, 0.12);
+  --zay-hairline-strong: rgba(236, 230, 214, 0.22);
+  --zay-overlay: rgba(11, 10, 8, 0.55);
+  --zay-overlay-strong: rgba(11, 10, 8, 0.82);
+
+  /* Force Dawn's own font-family variables to the brand pair, regardless of
+     which font-picker handle resolved in the theme editor. */
+  --font-heading-family: 'Cormorant', serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 600;
+  --font-body-family: 'Montserrat', sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
+
+  /* ---- Type scale (fluid, mobile-first) ---- */
+  --zay-text-eyebrow: 0.75rem; /* 12px, uppercase, wide tracking */
+  --zay-text-sm: 0.875rem; /* 14px */
+  --zay-text-base: 1rem; /* 16px */
+  --zay-text-lg: 1.125rem; /* 18px */
+  --zay-text-xl: 1.375rem; /* 22px */
+  --zay-text-2xl: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); /* 28-40px, section heads */
+  --zay-text-3xl: clamp(2.25rem, 1.3rem + 3.5vw, 3.75rem); /* 36-60px, page heads */
+  --zay-text-hero: clamp(2.75rem, 1.2rem + 6vw, 6.5rem); /* 44-104px, hero */
+
+  /* ---- Spacing rhythm (8px base) ---- */
+  --zay-space-1: 0.5rem;
+  --zay-space-2: 1rem;
+  --zay-space-3: 1.5rem;
+  --zay-space-4: 2rem;
+  --zay-space-6: 3rem;
+  --zay-space-8: 4rem;
+  --zay-space-12: 6rem;
+  --zay-space-16: 8rem;
+
+  /* ---- Motion ---- */
+  --zay-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --zay-duration-fast: 200ms;
+  --zay-duration-base: 400ms;
+  --zay-duration-slow: 700ms;
+
+  /* ---- Structure ---- */
+  --zay-radius: 0px;
+  --zay-border: 1px solid var(--zay-hairline);
+  --zay-container-max: 1440px;
+}
+
+/* Editorial base overrides — keep Dawn's structural CSS, restyle its skin */
+body {
+  letter-spacing: 0.01em;
+}
+
+.zay-eyebrow {
+  font-family: var(--font-body-family);
+  font-size: var(--zay-text-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--zay-gold);
+}
+
+.zay-container {
+  max-width: var(--zay-container-max);
+  margin-inline: auto;
+  padding-inline: var(--zay-space-3);
+}
+
+@media screen and (min-width: 750px) {
+  .zay-container {
+    padding-inline: var(--zay-space-6);
+  }
+}
+
+.zay-hairline {
+  border-color: var(--zay-hairline);
+}
+
+/* Buttons: quiet, square, gold-on-black by default */
+.button,
+.shopify-payment-button__button--unbranded {
+  border-radius: var(--zay-radius);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: var(--zay-text-sm);
+  transition:
+    background-color var(--zay-duration-fast) var(--zay-ease),
+    color var(--zay-duration-fast) var(--zay-ease),
+    border-color var(--zay-duration-fast) var(--zay-ease);
+}
+
+.button--secondary {
+  border: 1px solid var(--zay-hairline-strong);
+  background: transparent;
+}
+
+.button--secondary:hover {
+  border-color: var(--zay-gold);
+  color: var(--zay-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
