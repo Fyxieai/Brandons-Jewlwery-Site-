@@ -1,20 +1,22 @@
-/* Zaeed Jewelers — design tokens
-   Brand: exclusive, quiet, expensive. Near-black + charcoal base, single gold accent, ivory text.
+/* Zaeed Jewelers — design tokens (v2 — light studio redesign)
+   Brand: exclusive, quiet, expensive. Palette sampled directly from the real
+   product footage (soft cool-neutral studio gray, warm rose-gold case tones)
+   rather than approximated — see docs/palette-source.md.
    Editorial serif headlines (Cormorant), clean sans body (Montserrat). */
 
 :root {
-  /* ---- Color ---- */
-  --zay-black: #0b0a08;
-  --zay-charcoal: #16140f;
-  --zay-charcoal-warm: #171208;
-  --zay-ivory: #ece6d6;
-  --zay-ivory-muted: #a49c88;
-  --zay-gold: #c9a227;
-  --zay-gold-bright: #e0bc4a;
-  --zay-hairline: rgba(236, 230, 214, 0.12);
-  --zay-hairline-strong: rgba(236, 230, 214, 0.22);
-  --zay-overlay: rgba(11, 10, 8, 0.55);
-  --zay-overlay-strong: rgba(11, 10, 8, 0.82);
+  /* ---- Color — sampled from Untitled design-15.gif ---- */
+  --zay-bg: #c6cbcc; /* the real studio backdrop */
+  --zay-bg-elevated: #d9dcdc; /* one step lighter, alternating sections */
+  --zay-surface: #f4f3f0; /* warm near-white, cards/content blocks */
+  --zay-ink: #18181a; /* primary text — near-black, strong on light bg */
+  --zay-ink-muted: #5c5850; /* secondary text — warm gray */
+  --zay-gold: #8c6d45; /* deep warm bronze-gold, sampled from the bracelet */
+  --zay-gold-bright: #ad8858; /* lighter gold — hover/highlight */
+  --zay-hairline: rgba(24, 24, 26, 0.12);
+  --zay-hairline-strong: rgba(24, 24, 26, 0.22);
+  --zay-overlay: rgba(255, 255, 255, 0.55);
+  --zay-overlay-strong: rgba(255, 255, 255, 0.86);
 
   /* Force Dawn's own font-family variables to the brand pair, regardless of
      which font-picker handle resolved in the theme editor. */
@@ -88,7 +90,7 @@ body {
   border-color: var(--zay-hairline);
 }
 
-/* Buttons: quiet, square, gold-on-black by default */
+/* Buttons: quiet, square, gold-on-light by default */
 .button,
 .shopify-payment-button__button--unbranded {
   border-radius: var(--zay-radius);
