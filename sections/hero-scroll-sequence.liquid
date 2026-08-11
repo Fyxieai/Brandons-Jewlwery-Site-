@@ -325,15 +325,15 @@
         if (!img || !img.complete || !naturalW) return;
         var cw = canvas.width;
         var ch = canvas.height;
-        // Contain within a margin (not cover) so the piece always has quiet
-        // space around it — keeps the eyebrow/heading from ever colliding
-        // with case/bracelet detail, on any frame or viewport.
-        var marginFactor = 0.82;
-        var scale = Math.min(cw / naturalW, ch / naturalH) * marginFactor;
+        // True full-bleed cover — the frame's own background reads as one
+        // continuous surface with the page (no visible seam/box). Text
+        // legibility over the piece is handled entirely by the scrim below,
+        // not by shrinking the image.
+        var scale = Math.max(cw / naturalW, ch / naturalH);
         var dw = naturalW * scale;
         var dh = naturalH * scale;
         var dx = (cw - dw) / 2;
-        var dy = (ch - dh) / 2 - ch * 0.03;
+        var dy = (ch - dh) / 2;
         ctx.clearRect(0, 0, cw, ch);
         ctx.drawImage(img, dx, dy, dw, dh);
       }
