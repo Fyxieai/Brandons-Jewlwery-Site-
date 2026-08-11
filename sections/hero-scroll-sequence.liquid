@@ -328,8 +328,13 @@
       grid-area: content;
     }
     .hss__media-frame {
-      aspect-ratio: 1 / 1;
-      max-height: 46vh;
+      /* Width-driven, not height-driven: max-height combined with
+         aspect-ratio let the height constraint win and pushed the frame
+         wider than its column, overflowing the viewport horizontally.
+         width:100% (inherited) + aspect-ratio here derives height FROM a
+         safely-bounded width instead, so it can never overflow sideways. */
+      max-height: none;
+      aspect-ratio: 6 / 5;
     }
     .hss__heading {
       font-size: clamp(2.25rem, 1.2rem + 5vw, 3.5rem);
