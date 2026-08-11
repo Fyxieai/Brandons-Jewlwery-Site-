@@ -2,7 +2,7 @@
 
 <section class="zay-section brand-line-section color-{{ section.settings.color_scheme }}">
   <div class="zay-container">
-    <div class="brand-line">
+    <div class="brand-line{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- if section.settings.quote != blank -%}
         <p class="brand-line__quote">{{ section.settings.quote }}</p>
       {%- endif -%}

@@ -3,7 +3,7 @@
 <section class="zay-section path-cards color-{{ section.settings.color_scheme }}">
   <div class="zay-container">
     {%- if section.settings.heading != blank -%}
-      <div class="zay-section__head">
+      <div class="zay-section__head{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <h2 class="zay-section__heading">{{ section.settings.heading }}</h2>
       </div>
     {%- endif -%}
@@ -13,7 +13,8 @@
         {%- if block.type == 'path' -%}
           <a
             href="{{ block.settings.link | default: '#' }}"
-            class="path-card"
+            class="path-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}data-cascade style="--animation-order: {{ forloop.index0 }};"{% endif %}
             {{ block.shopify_attributes }}
           >
             {%- if block.settings.eyebrow != blank -%}

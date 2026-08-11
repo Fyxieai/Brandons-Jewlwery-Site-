@@ -3,13 +3,13 @@
 <section class="zay-section dealer-row color-{{ section.settings.color_scheme }}">
   <div class="zay-container">
     {%- if section.settings.heading != blank -%}
-      <div class="zay-section__head">
+      <div class="zay-section__head{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <p class="zay-eyebrow">{{ section.settings.eyebrow | default: 'Trusted Across the Trade' }}</p>
         <h2 class="zay-section__heading">{{ section.settings.heading }}</h2>
       </div>
     {%- endif -%}
 
-    <ul class="dealer-row__list">
+    <ul class="dealer-row__list{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- for block in section.blocks -%}
         {%- if block.type == 'dealer' -%}
           <li {{ block.shopify_attributes }}>{{ block.settings.name }}</li>

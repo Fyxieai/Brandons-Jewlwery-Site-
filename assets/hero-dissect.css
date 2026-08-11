@@ -29,8 +29,18 @@
   height: 100dvh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--zay-space-4, 2rem);
+  padding-block: var(--zay-space-8, 4rem);
+}
+
+@media (max-width: 749px) {
+  .hero-dissect__pin {
+    gap: var(--zay-space-2, 1rem);
+    padding-block: var(--zay-space-4, 2rem);
+  }
 }
 
 .hero-dissect__bg {
@@ -50,23 +60,36 @@
 
 .hero-dissect__assembly {
   position: relative;
-  width: min(64vw, 640px);
+  width: min(64vw, 46vh, 640px);
   aspect-ratio: 1 / 1;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 @media (max-width: 749px) {
   .hero-dissect__assembly {
-    width: 82vw;
+    width: min(78vw, 34vh, 420px);
   }
+}
+
+.hero-dissect__watch-glyph {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 44%;
+  height: 44%;
+  color: var(--zay-gold, #c9a227);
+  z-index: 5;
+  opacity: calc(1 - (var(--hd-progress) * 5));
+  transform: scale(calc(1 - var(--hd-progress) * 0.15));
 }
 
 .hero-dissect__piece {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 46%;
-  height: 46%;
+  width: 32%;
+  height: 32%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,7 +101,6 @@
     )
     rotate(calc(var(--hd-progress) * var(--hd-rot)))
     scale(calc(1 + (var(--hd-scale, 1) - 1) * var(--hd-progress)));
-  opacity: calc(1 - (var(--hd-progress) * 0));
 }
 
 .hero-dissect__piece-img {
@@ -91,13 +113,16 @@
 .hero-dissect__piece-placeholder {
   width: 100%;
   height: 100%;
-  border: 1px dashed var(--zay-hairline-strong, rgba(236, 230, 214, 0.22));
+  border: 1px solid var(--zay-hairline, rgba(236, 230, 214, 0.12));
+  background: rgba(201, 162, 39, 0.04);
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: var(--zay-space-1, 0.5rem);
+  opacity: clamp(0, calc(var(--hd-progress) * 5 - 0.1), 1);
+  transition: opacity 100ms linear;
 }
 
 .hero-dissect__piece-placeholder span {
@@ -119,9 +144,14 @@
   padding: 0 var(--zay-space-3, 1.5rem);
   max-width: 46rem;
   pointer-events: none;
-  margin-top: auto;
-  padding-bottom: var(--zay-space-12, 6rem);
+  flex-shrink: 0;
   animation: hero-dissect-rise 900ms var(--zay-ease, ease-out) both;
+}
+
+@media (max-width: 749px) {
+  .hero-dissect__content {
+    gap: 0.625rem;
+  }
 }
 
 .hero-dissect__content > * {
