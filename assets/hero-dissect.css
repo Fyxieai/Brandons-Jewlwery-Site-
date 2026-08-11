@@ -51,14 +51,15 @@
 
 .hero-dissect__assembly {
   position: relative;
-  width: min(64vw, 640px);
+  width: min(64vw, 46vh, 640px);
   aspect-ratio: 1 / 1;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 @media (max-width: 749px) {
   .hero-dissect__assembly {
-    width: 82vw;
+    width: min(78vw, 34vh, 420px);
   }
 }
 
