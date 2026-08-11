@@ -423,10 +423,14 @@
 
       function updateStages(progress) {
         if (!stageEls.length) return;
+        // `progress` is 0-1 (ScrollTrigger's own scale); thresholds are
+        // authored as 0-100 percent in the schema (matches the range
+        // setting's UI), so compare in the same percent scale.
+        var progressPct = progress * 100;
         var activeIndex = 0;
         for (var i = 0; i < stageEls.length; i++) {
           var threshold = parseFloat(stageEls[i].getAttribute('data-threshold')) || 0;
-          if (progress >= threshold) activeIndex = i;
+          if (progressPct >= threshold) activeIndex = i;
         }
         stageEls.forEach(function (el, i) {
           if (i === activeIndex) {
