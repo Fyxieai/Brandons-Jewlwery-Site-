@@ -1,14 +1,17 @@
 {% comment %}
-  Hero — Scroll-Scrubbed Image Sequence
+  Hero — Scroll-Scrubbed Image Sequence (v2 — integrated two-column layout)
   Self-contained section: inline CSS + inline JS (GSAP/ScrollTrigger via CDN),
   drop-in ready. Preloads a numbered frame sequence from theme assets and maps
-  scroll position to frame index — the same technique Apple uses on its
-  AirPods / product pages. Canvas-drawn (not <img> swapping) for smooth,
-  stutter-free scrubbing at any frame rate.
+  scroll position to frame index. Unlike v1 (full-bleed background wash),
+  the sequence lives in a framed left column paired with a right content
+  column and a live stage indicator driven by the same scroll progress — the
+  piece reads as an interactive module, not decorative wallpaper.
 
   Frames expected at: assets/{{ section.settings.frame_prefix }}NNN.jpg
-  (3-digit zero-padded, 1-indexed) — see docs/palette-source.md for how this
-  set was produced.
+  (3-digit zero-padded, 1-indexed). Source composition note: the piece sits
+  in the right ~40% of each source frame with dark negative space on the
+  left — the canvas draw uses a right-biased crop (not centered) so that
+  empty space is what gets cropped away, not the piece itself.
 {% endcomment %}
 
 {%- assign frame_count = section.settings.frame_count -%}
@@ -23,31 +26,46 @@
 >
   <div class="hss__track">
     <div class="hss__pin">
-      <div class="hss__canvas-wrap">
-        <canvas class="hss__canvas" data-hss-canvas aria-hidden="true"></canvas>
-      </div>
+      <div class="hss__grid">
+        <div class="hss__media">
+          <div class="hss__media-frame">
+            <canvas class="hss__canvas" data-hss-canvas aria-hidden="true"></canvas>
+          </div>
 
-      <div class="hss__content">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="zay-eyebrow hss__eyebrow">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h1 class="hss__heading">{{ section.settings.heading }}</h1>
-        {%- endif -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="hss__subheading">{{ section.settings.subheading }}</p>
-        {%- endif -%}
-        <div class="hss__actions">
-          {%- if section.settings.primary_cta_text != blank -%}
-            <a href="{{ section.settings.primary_cta_link | default: '#' }}" class="button button--primary">
-              {{ section.settings.primary_cta_text }}
-            </a>
+          <ol class="hss__stages" data-hss-stages>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'stage' -%}
+                <li class="hss__stage" data-hss-stage data-threshold="{{ block.settings.threshold }}">
+                  <span class="hss__stage-index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                  <span class="hss__stage-label">{{ block.settings.label }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ol>
+        </div>
+
+        <div class="hss__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="zay-eyebrow hss__eyebrow">{{ section.settings.eyebrow }}</p>
           {%- endif -%}
-          {%- if section.settings.secondary_cta_text != blank -%}
-            <a href="{{ section.settings.secondary_cta_link | default: '#' }}" class="button button--secondary">
-              {{ section.settings.secondary_cta_text }}
-            </a>
+          {%- if section.settings.heading != blank -%}
+            <h1 class="hss__heading">{{ section.settings.heading }}</h1>
           {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p class="hss__subheading">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+          <div class="hss__actions">
+            {%- if section.settings.primary_cta_text != blank -%}
+              <a href="{{ section.settings.primary_cta_link | default: '#' }}" class="button button--primary">
+                {{ section.settings.primary_cta_text }}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.secondary_cta_text != blank -%}
+              <a href="{{ section.settings.secondary_cta_link | default: '#' }}" class="button button--secondary">
+                {{ section.settings.secondary_cta_text }}
+              </a>
+            {%- endif -%}
+          </div>
         </div>
       </div>
 
@@ -91,42 +109,41 @@
     height: 100dvh;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
     opacity: 0;
     transition: opacity 400ms ease;
-  }
-
-  /* Pseudo-element, not a div — Dawn's base.css hides empty <div>s
-     (div:empty { display: none }), which silently killed an earlier version
-     of this scrim built as a real element. */
-  .hss__pin::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0 0;
-    z-index: 2;
-    height: 62%;
-    background: linear-gradient(
-      to top,
-      rgb(var(--color-background)) 0%,
-      rgba(var(--color-background), 0.94) 28%,
-      rgba(var(--color-background), 0.7) 50%,
-      transparent 100%
-    );
-    pointer-events: none;
   }
 
   .hss[data-hss-ready] .hss__pin {
     opacity: 1;
   }
 
-  .hss__canvas-wrap {
-    position: absolute;
-    inset: 0;
-    display: flex;
+  .hss__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
-    justify-content: center;
+    gap: var(--zay-space-8, 4rem);
+    max-width: var(--zay-container-max);
+    margin-inline: auto;
+    padding-inline: var(--zay-space-6, 3rem);
+  }
+
+  .hss__media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--zay-space-4, 2rem);
+  }
+
+  .hss__media-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    max-height: 76vh;
+    border: 1px solid var(--zay-hairline, rgba(244, 241, 234, 0.12));
+    background: rgb(var(--color-background));
+    overflow: hidden;
   }
 
   .hss__canvas {
@@ -135,30 +152,52 @@
     display: block;
   }
 
-  .hss__content {
-    position: relative;
-    z-index: 3;
+  .hss__stages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--zay-space-2, 1rem);
-    padding: 0 var(--zay-space-3, 1.5rem);
-    max-width: 46rem;
-    pointer-events: none;
-    margin-top: auto;
-    padding-bottom: var(--zay-space-8, 4rem);
+    gap: var(--zay-space-4, 2rem);
   }
 
-  .hss__content > * {
-    pointer-events: auto;
+  .hss__stage {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    opacity: 0.4;
+    transition: opacity var(--zay-duration-base, 400ms) var(--zay-ease);
+  }
+
+  .hss__stage[data-hss-active] {
+    opacity: 1;
+  }
+
+  .hss__stage-index {
+    font-family: var(--font-body-family);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--zay-gold, #c9a45c);
+  }
+
+  .hss__stage-label {
+    font-family: var(--font-body-family);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--zay-ink, #f4f1ea);
+    white-space: nowrap;
+  }
+
+  .hss__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: var(--zay-space-2, 1rem);
   }
 
   .hss__eyebrow {
     margin: 0;
-    /* Override the site-wide gold eyebrow color — here it sits over gold
-       watch imagery, so gold-on-gold reads too low-contrast. */
-    color: var(--zay-ink, #18181a);
   }
 
   .hss__heading {
@@ -167,32 +206,30 @@
     font-weight: var(--font-heading-weight, 600);
     font-size: var(--zay-text-hero);
     line-height: 1.02;
-    color: var(--zay-ink, #18181a);
+    color: var(--zay-ink, #f4f1ea);
   }
 
   .hss__subheading {
     margin: 0;
-    max-width: 34rem;
+    max-width: 30rem;
     font-family: var(--font-body-family);
     font-size: var(--zay-text-lg);
     line-height: 1.6;
-    color: var(--zay-ink-muted, #5c5850);
+    color: var(--zay-ink-muted, #a8a29b);
   }
 
   .hss__actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     gap: var(--zay-space-2, 1rem);
-    margin-top: var(--zay-space-2, 1rem);
+    margin-top: var(--zay-space-3, 1.5rem);
   }
 
   .hss__scroll-cue {
     position: absolute;
-    left: 50%;
+    left: var(--zay-space-6, 3rem);
     bottom: var(--zay-space-3, 1.5rem);
-    transform: translateX(-50%);
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -204,7 +241,7 @@
   .hss__scroll-cue span {
     width: 1px;
     height: 2.25rem;
-    background: linear-gradient(to bottom, var(--zay-gold, #8c6d45), transparent);
+    background: linear-gradient(to bottom, var(--zay-gold, #c9a45c), transparent);
   }
 
   .hss__scroll-cue p {
@@ -213,7 +250,7 @@
     font-size: 0.6875rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--zay-ink-muted, #5c5850);
+    color: var(--zay-ink-muted, #a8a29b);
   }
 
   .hss__loader {
@@ -239,7 +276,7 @@
   .hss__loader-mark {
     width: 3rem;
     height: 3rem;
-    color: var(--zay-gold, #8c6d45);
+    color: var(--zay-gold, #c9a45c);
     animation: hss-loader-spin 2.4s linear infinite;
   }
 
@@ -252,14 +289,14 @@
   .hss__loader-bar {
     width: min(220px, 60vw);
     height: 1px;
-    background: var(--zay-hairline-strong, rgba(24, 24, 26, 0.22));
+    background: var(--zay-hairline-strong, rgba(244, 241, 234, 0.22));
     overflow: hidden;
   }
 
   .hss__loader-fill {
     height: 100%;
     width: 0%;
-    background: var(--zay-gold, #8c6d45);
+    background: var(--zay-gold, #c9a45c);
     transition: width 120ms linear;
   }
 
@@ -268,13 +305,35 @@
     font-family: var(--font-body-family);
     font-size: var(--zay-text-sm);
     letter-spacing: 0.08em;
-    color: var(--zay-ink-muted, #5c5850);
+    color: var(--zay-ink-muted, #a8a29b);
   }
 
-  @media (max-width: 749px) {
+  @media (max-width: 989px) {
+    .hss__grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'media' 'content';
+      gap: var(--zay-space-4, 2rem);
+      padding-inline: var(--zay-space-3, 1.5rem);
+    }
+    .hss__media {
+      grid-area: media;
+    }
     .hss__content {
-      gap: 0.625rem;
-      padding-bottom: var(--zay-space-4, 2rem);
+      grid-area: content;
+    }
+    .hss__media-frame {
+      aspect-ratio: 1 / 1;
+      max-height: 46vh;
+    }
+    .hss__heading {
+      font-size: clamp(2.25rem, 1.2rem + 5vw, 3.5rem);
+    }
+    .hss__stages {
+      gap: var(--zay-space-2, 1rem);
+      flex-wrap: wrap;
+    }
+    .hss__scroll-cue {
+      display: none;
     }
   }
 
@@ -313,6 +372,7 @@
       var loaderLabel = root.querySelector('[data-hss-loader-label]');
       var track = root.querySelector('.hss__track');
       var cue = root.querySelector('[data-hss-cue]');
+      var stageEls = Array.prototype.slice.call(root.querySelectorAll('[data-hss-stage]'));
       var ctx = canvas.getContext('2d');
 
       var images = new Array(frameCount);
@@ -321,6 +381,10 @@
       var naturalW = 0;
       var naturalH = 0;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var HORIZONTAL_BIAS = 0.78; // 0 = show source's left edge, 1 = show source's right edge.
+      // The source frames compose the piece in the right ~40% of the image
+      // with empty space on the left — biasing the cover-crop right means
+      // that empty space is what gets cropped away, not the piece.
 
       function sizeCanvas() {
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -336,14 +400,10 @@
         if (!img || !img.complete || !naturalW) return;
         var cw = canvas.width;
         var ch = canvas.height;
-        // True full-bleed cover — the frame's own background reads as one
-        // continuous surface with the page (no visible seam/box). Text
-        // legibility over the piece is handled entirely by the scrim below,
-        // not by shrinking the image.
         var scale = Math.max(cw / naturalW, ch / naturalH);
         var dw = naturalW * scale;
         var dh = naturalH * scale;
-        var dx = (cw - dw) / 2;
+        var dx = (cw - dw) * HORIZONTAL_BIAS;
         var dy = (ch - dh) / 2;
         ctx.clearRect(0, 0, cw, ch);
         ctx.drawImage(img, dx, dy, dw, dh);
@@ -355,10 +415,27 @@
         if (loaderLabel) loaderLabel.textContent = 'Loading ' + pct + '%';
       }
 
+      function updateStages(progress) {
+        if (!stageEls.length) return;
+        var activeIndex = 0;
+        for (var i = 0; i < stageEls.length; i++) {
+          var threshold = parseFloat(stageEls[i].getAttribute('data-threshold')) || 0;
+          if (progress >= threshold) activeIndex = i;
+        }
+        stageEls.forEach(function (el, i) {
+          if (i === activeIndex) {
+            el.setAttribute('data-hss-active', '');
+          } else {
+            el.removeAttribute('data-hss-active');
+          }
+        });
+      }
+
       function onAllLoaded() {
         root.setAttribute('data-hss-ready', '');
         sizeCanvas();
         drawFrame(0);
+        updateStages(0);
         setupScroll();
       }
 
@@ -403,6 +480,7 @@
             scrub: 0.35,
             onUpdate: function (self) {
               if (cue) cue.style.opacity = String(Math.max(0, 1 - self.progress * 6));
+              updateStages(self.progress);
             }
           },
           onUpdate: function () {
@@ -446,9 +524,9 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "options": [
-        { "value": "scheme-1", "label": "Studio gray" },
-        { "value": "scheme-2", "label": "Studio gray (elevated)" },
-        { "value": "scheme-3", "label": "Warm white" }
+        { "value": "scheme-1", "label": "Studio dark" },
+        { "value": "scheme-2", "label": "Studio dark (elevated)" },
+        { "value": "scheme-3", "label": "Card surface" }
       ],
       "default": "scheme-1"
     },
@@ -456,8 +534,8 @@
       "type": "text",
       "id": "frame_prefix",
       "label": "Frame filename prefix",
-      "default": "daytona-frame-",
-      "info": "Frames must exist in theme assets as <prefix>NNN.jpg, 3-digit zero-padded (e.g. daytona-frame-001.jpg)."
+      "default": "daytona-dark-frame-",
+      "info": "Frames must exist in theme assets as <prefix>NNN.jpg, 3-digit zero-padded."
     },
     {
       "type": "range",
@@ -475,8 +553,7 @@
       "min": 200,
       "max": 800,
       "step": 50,
-      "default": 500,
-      "info": "How much scroll distance the sequence takes to fully play. Taller = slower, more cinematic."
+      "default": 500
     },
     {
       "type": "text",
@@ -527,9 +604,39 @@
       "label": "Button link"
     }
   ],
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Stage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "The Piece"
+        },
+        {
+          "type": "range",
+          "id": "threshold",
+          "label": "Activates at scroll progress",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "default": 0,
+          "info": "0-100, as a percent of this section's scroll distance."
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Hero — Scroll Sequence"
+      "name": "Hero — Scroll Sequence",
+      "blocks": [
+        { "type": "stage", "settings": { "label": "The Complete Piece", "threshold": 0 } },
+        { "type": "stage", "settings": { "label": "The Case Opens", "threshold": 24 } },
+        { "type": "stage", "settings": { "label": "The Dial & Hands", "threshold": 54 } },
+        { "type": "stage", "settings": { "label": "The Movement", "threshold": 80 } }
+      ]
     }
   ]
 }
