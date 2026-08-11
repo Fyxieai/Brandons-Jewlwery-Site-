@@ -140,7 +140,13 @@
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
-    max-height: 76vh;
+    /* Deliberately conservative — .hss__pin centers its content within a
+       full 100vh box even before scroll engages position:sticky (at initial
+       page load the pin's true top sits below the header in normal flow,
+       so only ~(100vh - header height) is actually visible pre-scroll).
+       This height keeps the whole column comfortably inside that smaller
+       visible budget instead of only fitting once the user has scrolled. */
+    max-height: 58vh;
     border: 1px solid var(--zay-hairline, rgba(244, 241, 234, 0.12));
     background: rgb(var(--color-background));
     overflow: hidden;
