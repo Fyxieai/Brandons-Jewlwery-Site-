@@ -33,12 +33,16 @@
               "
             >
               {%- if img != blank -%}
+                {%- assign img_fetchpriority = 'auto' -%}
+                {%- if forloop.index0 == 0 -%}
+                  {%- assign img_fetchpriority = 'high' -%}
+                {%- endif -%}
                 {{
                   img
                   | image_url: width: 900
                   | image_tag:
                     loading: 'eager',
-                    fetchpriority: forloop.index0 == 0 ? 'high' : 'auto',
+                    fetchpriority: img_fetchpriority,
                     sizes: '(min-width: 990px) 40vw, 70vw',
                     widths: '300,450,600,900',
                     class: 'hero-dissect__piece-img'
@@ -185,7 +189,7 @@
     },
     {
       "type": "header",
-      "content": "Commercial video (optional, sits below the scroll piece)"
+      "content": "Commercial video (optional)"
     },
     {
       "type": "video",
@@ -236,6 +240,7 @@
           "label": "Exploded X offset (%)",
           "min": -60,
           "max": 60,
+          "step": 2,
           "default": 0
         },
         {
@@ -244,6 +249,7 @@
           "label": "Exploded Y offset (%)",
           "min": -60,
           "max": 60,
+          "step": 2,
           "default": 0
         },
         {
@@ -252,6 +258,7 @@
           "label": "Exploded rotation (deg)",
           "min": -180,
           "max": 180,
+          "step": 4,
           "default": 0
         },
         {
@@ -260,6 +267,7 @@
           "label": "Exploded scale (%)",
           "min": 40,
           "max": 160,
+          "step": 2,
           "default": 100
         }
       ]
@@ -269,14 +277,14 @@
     {
       "name": "Hero — Dissect on Scroll",
       "blocks": [
-        { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -18 } },
+        { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -16 } },
         { "type": "piece", "settings": { "label": "Dial (meteorite)", "stack_order": 8, "explode_x": 0, "explode_y": -32, "explode_rotate": 0, "explode_scale": 110 } },
         { "type": "piece", "settings": { "label": "Bezel", "stack_order": 9, "explode_x": 34, "explode_y": -20, "explode_rotate": 24 } },
         { "type": "piece", "settings": { "label": "Crystal", "stack_order": 10, "explode_x": 0, "explode_y": 0, "explode_rotate": 0, "explode_scale": 70 } },
         { "type": "piece", "settings": { "label": "Crown", "stack_order": 4, "explode_x": 48, "explode_y": 10, "explode_rotate": 40 } },
         { "type": "piece", "settings": { "label": "Hands", "stack_order": 7, "explode_x": -10, "explode_y": 8, "explode_rotate": -60, "explode_scale": 80 } },
-        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 14, "explode_scale": 90 } },
-        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -22, "explode_scale": 90 } }
+        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 16, "explode_scale": 90 } },
+        { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -20, "explode_scale": 90 } }
       ]
     }
   ]

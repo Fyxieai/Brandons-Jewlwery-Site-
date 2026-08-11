@@ -1,4 +1,4 @@
-# Zay Jewelers — Shopify Theme
+# Zaeed Jewelers — Shopify Theme
 
 A high-end pre-owned and sourced watch dealer site for Brandon the Jeweler.
 Built on Shopify Online Store 2.0 (Dawn foundation), with a custom luxury

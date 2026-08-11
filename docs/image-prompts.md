@@ -1,4 +1,4 @@
-# Zay Jewelers — Hero Watch Image Prompt Kit
+# Zaeed Jewelers — Hero Watch Image Prompt Kit
 
 Gold Rolex Daytona, meteorite dial. These 8 piece shots + 1 assembled shot feed the
 `hero-dissect` section blocks directly (same order as `templates/index.json`).

@@ -3,14 +3,14 @@
     "hero": {
       "type": "hero-dissect",
       "blocks": {
-        "case": { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -18, "explode_scale": 100 } },
+        "case": { "type": "piece", "settings": { "label": "Case", "stack_order": 3, "explode_x": -38, "explode_y": -8, "explode_rotate": -16, "explode_scale": 100 } },
         "dial": { "type": "piece", "settings": { "label": "Dial (meteorite)", "stack_order": 8, "explode_x": 0, "explode_y": -32, "explode_rotate": 0, "explode_scale": 110 } },
         "bezel": { "type": "piece", "settings": { "label": "Bezel", "stack_order": 9, "explode_x": 34, "explode_y": -20, "explode_rotate": 24, "explode_scale": 100 } },
         "crystal": { "type": "piece", "settings": { "label": "Crystal", "stack_order": 10, "explode_x": 0, "explode_y": 0, "explode_rotate": 0, "explode_scale": 70 } },
         "crown": { "type": "piece", "settings": { "label": "Crown", "stack_order": 4, "explode_x": 48, "explode_y": 10, "explode_rotate": 40, "explode_scale": 100 } },
         "hands": { "type": "piece", "settings": { "label": "Hands", "stack_order": 7, "explode_x": -10, "explode_y": 8, "explode_rotate": -60, "explode_scale": 80 } },
-        "link1": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 14, "explode_scale": 90 } },
-        "link2": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -22, "explode_scale": 90 } }
+        "link1": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 2, "explode_x": -30, "explode_y": 40, "explode_rotate": 16, "explode_scale": 90 } },
+        "link2": { "type": "piece", "settings": { "label": "Bracelet link", "stack_order": 1, "explode_x": 28, "explode_y": 44, "explode_rotate": -20, "explode_scale": 90 } }
       },
       "block_order": ["case", "dial", "bezel", "crystal", "crown", "hands", "link1", "link2"],
       "settings": {
@@ -130,7 +130,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "quote": "<p>The edge isn't luck — it's <em>access</em>. Prices that beat the market, through a real dealer network.</p>",
-        "attribution": "Brandon, Zay Jewelers"
+        "attribution": "Brandon, Zaeed Jewelers"
       }
     }
   },
