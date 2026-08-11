@@ -5,7 +5,11 @@
     <div class="trust-strip__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'item' -%}
-          <div class="trust-strip__item" {{ block.shopify_attributes }}>
+          <div
+            class="trust-strip__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}data-cascade style="--animation-order: {{ forloop.index0 }};"{% endif %}
+            {{ block.shopify_attributes }}
+          >
             <svg class="trust-strip__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               {%- case block.settings.icon -%}
                 {%- when 'shield' -%}
