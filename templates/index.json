@@ -11,9 +11,45 @@
   "sections": {
     "hero": {
       "type": "hero-scroll-sequence",
+      "blocks": {
+        "stage1": {
+          "type": "stage",
+          "settings": {
+            "label": "The Complete Piece",
+            "threshold": 0
+          }
+        },
+        "stage2": {
+          "type": "stage",
+          "settings": {
+            "label": "The Case Opens",
+            "threshold": 24
+          }
+        },
+        "stage3": {
+          "type": "stage",
+          "settings": {
+            "label": "The Dial & Hands",
+            "threshold": 50
+          }
+        },
+        "stage4": {
+          "type": "stage",
+          "settings": {
+            "label": "The Movement",
+            "threshold": 74
+          }
+        }
+      },
+      "block_order": [
+        "stage1",
+        "stage2",
+        "stage3",
+        "stage4"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
-        "frame_prefix": "daytona-frame-",
+        "frame_prefix": "daytona-dark-frame-",
         "frame_count": 192,
         "scroll_length": 500,
         "eyebrow": "The Daytona, Reimagined",
