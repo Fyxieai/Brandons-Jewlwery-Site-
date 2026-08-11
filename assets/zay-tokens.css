@@ -91,7 +91,7 @@ body {
   border-color: var(--zay-hairline);
 }
 
-/* Buttons: quiet, square, gold-on-light by default */
+/* Buttons: quiet, square, gold-on-dark by default */
 .button,
 .shopify-payment-button__button--unbranded {
   border-radius: var(--zay-radius);
@@ -130,7 +130,7 @@ body {
 }
 
 .header__menu-item:hover {
-  color: var(--zay-ink, #18181a);
+  color: var(--zay-ink, #f4f1ea);
 }
 
 .header__heading-link .h2 {
