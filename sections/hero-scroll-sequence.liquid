@@ -121,7 +121,7 @@
   .hss__grid {
     width: 100%;
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: center;
     gap: var(--zay-space-8, 4rem);
     max-width: var(--zay-container-max);
@@ -316,7 +316,7 @@
 
   @media (max-width: 989px) {
     .hss__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-areas: 'media' 'content';
       gap: var(--zay-space-4, 2rem);
       padding-inline: var(--zay-space-3, 1.5rem);
