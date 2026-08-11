@@ -1,0 +1,510 @@
+{% comment %}
+  Hero — Scroll-Scrubbed Image Sequence
+  Self-contained section: inline CSS + inline JS (GSAP/ScrollTrigger via CDN),
+  drop-in ready. Preloads a numbered frame sequence from theme assets and maps
+  scroll position to frame index — the same technique Apple uses on its
+  AirPods / product pages. Canvas-drawn (not <img> swapping) for smooth,
+  stutter-free scrubbing at any frame rate.
+
+  Frames expected at: assets/{{ section.settings.frame_prefix }}NNN.jpg
+  (3-digit zero-padded, 1-indexed) — see docs/palette-source.md for how this
+  set was produced.
+{% endcomment %}
+
+{%- assign frame_count = section.settings.frame_count -%}
+{%- assign frame_prefix = section.settings.frame_prefix -%}
+
+<section
+  class="hss color-{{ section.settings.color_scheme }}"
+  id="hss-{{ section.id }}"
+  data-hss
+  data-frame-count="{{ frame_count }}"
+  style="--hss-track-vh: {{ section.settings.scroll_length }};"
+>
+  <div class="hss__track">
+    <div class="hss__pin">
+      <div class="hss__canvas-wrap">
+        <canvas class="hss__canvas" data-hss-canvas aria-hidden="true"></canvas>
+      </div>
+
+      <div class="hss__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="zay-eyebrow hss__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="hss__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="hss__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <div class="hss__actions">
+          {%- if section.settings.primary_cta_text != blank -%}
+            <a href="{{ section.settings.primary_cta_link | default: '#' }}" class="button button--primary">
+              {{ section.settings.primary_cta_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_cta_text != blank -%}
+            <a href="{{ section.settings.secondary_cta_link | default: '#' }}" class="button button--secondary">
+              {{ section.settings.secondary_cta_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="hss__scroll-cue" data-hss-cue aria-hidden="true">
+        <span></span>
+        <p>Scroll</p>
+      </div>
+    </div>
+
+    <div class="hss__loader" data-hss-loader role="status" aria-live="polite">
+      <div class="hss__loader-mark">
+        <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
+          <circle cx="100" cy="100" r="72" stroke="currentColor" stroke-width="1.25"/>
+          <line x1="100" y1="100" x2="100" y2="58" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="128" y2="112" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="hss__loader-bar">
+        <div class="hss__loader-fill" data-hss-loader-fill></div>
+      </div>
+      <p class="hss__loader-label" data-hss-loader-label>Loading 0%</p>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  .hss {
+    position: relative;
+    background: rgb(var(--color-background));
+  }
+
+  .hss__track {
+    position: relative;
+    height: calc(var(--hss-track-vh, 500) * 1vh);
+  }
+
+  .hss__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  .hss[data-hss-ready] .hss__pin {
+    opacity: 1;
+  }
+
+  .hss__canvas-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hss__canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hss__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--zay-space-2, 1rem);
+    padding: 0 var(--zay-space-3, 1.5rem);
+    max-width: 46rem;
+    pointer-events: none;
+    margin-top: auto;
+    padding-bottom: var(--zay-space-8, 4rem);
+  }
+
+  .hss__content > * {
+    pointer-events: auto;
+  }
+
+  .hss__eyebrow {
+    margin: 0;
+  }
+
+  .hss__heading {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-weight: var(--font-heading-weight, 600);
+    font-size: var(--zay-text-hero);
+    line-height: 1.02;
+    color: var(--zay-ink, #18181a);
+  }
+
+  .hss__subheading {
+    margin: 0;
+    max-width: 34rem;
+    font-family: var(--font-body-family);
+    font-size: var(--zay-text-lg);
+    line-height: 1.6;
+    color: var(--zay-ink-muted, #5c5850);
+  }
+
+  .hss__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--zay-space-2, 1rem);
+    margin-top: var(--zay-space-2, 1rem);
+  }
+
+  .hss__scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: var(--zay-space-3, 1.5rem);
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 200ms linear;
+  }
+
+  .hss__scroll-cue span {
+    width: 1px;
+    height: 2.25rem;
+    background: linear-gradient(to bottom, var(--zay-gold, #8c6d45), transparent);
+  }
+
+  .hss__scroll-cue p {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--zay-ink-muted, #5c5850);
+  }
+
+  .hss__loader {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--zay-space-3, 1.5rem);
+    background: rgb(var(--color-background));
+    transition: opacity 500ms ease;
+  }
+
+  .hss[data-hss-ready] .hss__loader {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .hss__loader-mark {
+    width: 3rem;
+    height: 3rem;
+    color: var(--zay-gold, #8c6d45);
+    animation: hss-loader-spin 2.4s linear infinite;
+  }
+
+  @keyframes hss-loader-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .hss__loader-bar {
+    width: min(220px, 60vw);
+    height: 1px;
+    background: var(--zay-hairline-strong, rgba(24, 24, 26, 0.22));
+    overflow: hidden;
+  }
+
+  .hss__loader-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--zay-gold, #8c6d45);
+    transition: width 120ms linear;
+  }
+
+  .hss__loader-label {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-size: var(--zay-text-sm);
+    letter-spacing: 0.08em;
+    color: var(--zay-ink-muted, #5c5850);
+  }
+
+  @media (max-width: 749px) {
+    .hss__content {
+      gap: 0.625rem;
+      padding-bottom: var(--zay-space-4, 2rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hss__track {
+      height: 100vh;
+      height: 100dvh;
+    }
+    .hss__pin {
+      position: relative;
+    }
+  }
+{%- endstyle -%}
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" data-hss-gsap defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" data-hss-scrolltrigger defer></script>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    var frameCount = {{ frame_count | json }};
+    var frameUrls = [
+      {%- for i in (1..frame_count) -%}
+        {%- assign padded = i | prepend: '0000' | slice: -3, 3 -%}
+        {%- assign filename = frame_prefix | append: padded | append: '.jpg' -%}
+        {{ filename | asset_url | json }}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ];
+
+    function boot() {
+      var root = document.getElementById('hss-' + sectionId);
+      if (!root) return;
+
+      var canvas = root.querySelector('[data-hss-canvas]');
+      var loaderFill = root.querySelector('[data-hss-loader-fill]');
+      var loaderLabel = root.querySelector('[data-hss-loader-label]');
+      var track = root.querySelector('.hss__track');
+      var cue = root.querySelector('[data-hss-cue]');
+      var ctx = canvas.getContext('2d');
+
+      var images = new Array(frameCount);
+      var loadedCount = 0;
+      var currentFrame = 0;
+      var naturalW = 0;
+      var naturalH = 0;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function sizeCanvas() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+      }
+
+      function drawFrame(index) {
+        var img = images[index];
+        if (!img || !img.complete || !naturalW) return;
+        var cw = canvas.width;
+        var ch = canvas.height;
+        var scale = Math.max(cw / naturalW, ch / naturalH);
+        var dw = naturalW * scale;
+        var dh = naturalH * scale;
+        var dx = (cw - dw) / 2;
+        var dy = (ch - dh) / 2;
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(img, dx, dy, dw, dh);
+      }
+
+      function updateProgress() {
+        var pct = Math.round((loadedCount / frameCount) * 100);
+        if (loaderFill) loaderFill.style.width = pct + '%';
+        if (loaderLabel) loaderLabel.textContent = 'Loading ' + pct + '%';
+      }
+
+      function onAllLoaded() {
+        root.setAttribute('data-hss-ready', '');
+        sizeCanvas();
+        drawFrame(0);
+        setupScroll();
+      }
+
+      function preload() {
+        frameUrls.forEach(function (url, i) {
+          var img = new Image();
+          img.onload = function () {
+            loadedCount++;
+            if (i === 0) {
+              naturalW = img.naturalWidth;
+              naturalH = img.naturalHeight;
+              sizeCanvas();
+              drawFrame(0);
+            }
+            updateProgress();
+            if (loadedCount === frameCount) onAllLoaded();
+          };
+          img.onerror = function () {
+            loadedCount++;
+            if (loadedCount === frameCount) onAllLoaded();
+          };
+          img.src = url;
+          images[i] = img;
+        });
+      }
+
+      function setupScroll() {
+        if (reduceMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+          if (cue) cue.style.display = 'none';
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        var state = { frame: 0 };
+        gsap.to(state, {
+          frame: frameCount - 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: track,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.35,
+            onUpdate: function (self) {
+              if (cue) cue.style.opacity = String(Math.max(0, 1 - self.progress * 6));
+            }
+          },
+          onUpdate: function () {
+            var idx = Math.round(state.frame);
+            if (idx !== currentFrame) {
+              currentFrame = idx;
+              drawFrame(idx);
+            }
+          }
+        });
+      }
+
+      var resizeRaf = null;
+      window.addEventListener('resize', function () {
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(function () {
+          sizeCanvas();
+          drawFrame(currentFrame);
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        });
+      });
+
+      preload();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hero — Scroll Sequence",
+  "class": "section-hero-scroll-sequence",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Studio gray" },
+        { "value": "scheme-2", "label": "Studio gray (elevated)" },
+        { "value": "scheme-3", "label": "Warm white" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "frame_prefix",
+      "label": "Frame filename prefix",
+      "default": "daytona-frame-",
+      "info": "Frames must exist in theme assets as <prefix>NNN.jpg, 3-digit zero-padded (e.g. daytona-frame-001.jpg)."
+    },
+    {
+      "type": "range",
+      "id": "frame_count",
+      "label": "Frame count",
+      "min": 12,
+      "max": 240,
+      "step": 4,
+      "default": 192
+    },
+    {
+      "type": "range",
+      "id": "scroll_length",
+      "label": "Scroll length (vh)",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "default": 500,
+      "info": "How much scroll distance the sequence takes to fully play. Taller = slower, more cinematic."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Daytona, Reimagined"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every piece, considered."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "A gold Rolex Daytona with a meteorite dial — sourced, authenticated, and presented the way it deserves."
+    },
+    {
+      "type": "header",
+      "content": "Primary action"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Button label",
+      "default": "Request or Reserve"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary action"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Button label",
+      "default": "Book a Call with Brandon"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero — Scroll Sequence"
+    }
+  ]
+}
+{% endschema %}
