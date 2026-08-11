@@ -25,7 +25,7 @@
   font-family: var(--font-heading-family);
   font-weight: var(--font-heading-weight, 600);
   font-size: var(--zay-text-3xl);
-  color: var(--zay-ink, #f4f1ea);
+  color: rgb(var(--color-foreground));
 }
 
 /* ---- Path cards ---- */
@@ -71,14 +71,14 @@
   font-family: var(--font-heading-family);
   font-weight: 600;
   font-size: var(--zay-text-2xl);
-  color: var(--zay-ink, #f4f1ea);
+  color: rgb(var(--color-foreground));
 }
 
 .path-card__copy {
   margin: 0;
   font-family: var(--font-body-family);
   font-size: var(--zay-text-base);
-  color: var(--zay-ink-muted, #a8a29b);
+  color: rgba(var(--color-foreground), 0.7);
   line-height: 1.6;
 }
 
@@ -141,14 +141,14 @@
   font-weight: 500;
   font-size: var(--zay-text-sm);
   letter-spacing: 0.04em;
-  color: var(--zay-ink, #f4f1ea);
+  color: rgb(var(--color-foreground));
 }
 
 .trust-strip__detail {
   margin: 0;
   font-family: var(--font-body-family);
   font-size: var(--zay-text-sm);
-  color: var(--zay-ink-muted, #a8a29b);
+  color: rgba(var(--color-foreground), 0.7);
   line-height: 1.5;
 }
 
@@ -168,7 +168,7 @@
   font-family: var(--font-heading-family);
   font-style: italic;
   font-size: var(--zay-text-xl);
-  color: var(--zay-ink-muted, #a8a29b);
+  color: rgba(var(--color-foreground), 0.7);
   white-space: nowrap;
 }
 
@@ -178,7 +178,7 @@
   max-width: 34rem;
   font-family: var(--font-body-family);
   font-size: var(--zay-text-sm);
-  color: var(--zay-ink-muted, #a8a29b);
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 /* ---- Brand line ---- */
@@ -196,7 +196,7 @@
   font-style: italic;
   font-size: var(--zay-text-3xl);
   line-height: 1.25;
-  color: var(--zay-ink, #f4f1ea);
+  color: rgb(var(--color-foreground));
 }
 
 .brand-line__quote em {
@@ -210,5 +210,5 @@
   font-size: var(--zay-text-sm);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--zay-ink-muted, #a8a29b);
+  color: rgba(var(--color-foreground), 0.7);
 }
