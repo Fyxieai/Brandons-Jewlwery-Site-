@@ -32,6 +32,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--zay-space-4, 2rem);
+  padding-block: var(--zay-space-8, 4rem);
+}
+
+@media (max-width: 749px) {
+  .hero-dissect__pin {
+    gap: var(--zay-space-2, 1rem);
+    padding-block: var(--zay-space-4, 2rem);
+  }
 }
 
 .hero-dissect__bg {
