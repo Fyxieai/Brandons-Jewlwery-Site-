@@ -113,6 +113,40 @@ body {
   color: var(--zay-gold);
 }
 
+/* ---- Header — override Dawn's default "current page" underline (reads as
+   an unstyled browser default against this brand's quiet type system) and
+   lift the nav to match the rest of the site's tracked, uppercase labels. */
+.header__active-menu-item {
+  text-decoration: none;
+}
+
+.header__menu-item {
+  font-family: var(--font-body-family);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.header__menu-item:hover {
+  color: var(--zay-ink, #18181a);
+}
+
+.header__heading-link .h2 {
+  letter-spacing: 0.01em;
+}
+
+.header,
+.announcement-bar-section {
+  --color-border: 24, 24, 26;
+}
+
+.announcement-bar__message {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
