@@ -122,8 +122,16 @@
   max-width: 46rem;
   pointer-events: none;
   margin-top: auto;
+  flex-shrink: 0;
   padding-bottom: var(--zay-space-12, 6rem);
   animation: hero-dissect-rise 900ms var(--zay-ease, ease-out) both;
+}
+
+@media (max-width: 749px) {
+  .hero-dissect__content {
+    gap: 0.625rem;
+    padding-bottom: var(--zay-space-4, 2rem);
+  }
 }
 
 .hero-dissect__content > * {
