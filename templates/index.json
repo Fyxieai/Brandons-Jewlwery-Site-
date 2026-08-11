@@ -11,9 +11,45 @@
   "sections": {
     "hero": {
       "type": "hero-scroll-sequence",
+      "blocks": {
+        "stage1": {
+          "type": "stage",
+          "settings": {
+            "label": "The Complete Piece",
+            "threshold": 0
+          }
+        },
+        "stage2": {
+          "type": "stage",
+          "settings": {
+            "label": "The Case Opens",
+            "threshold": 24
+          }
+        },
+        "stage3": {
+          "type": "stage",
+          "settings": {
+            "label": "The Dial & Hands",
+            "threshold": 50
+          }
+        },
+        "stage4": {
+          "type": "stage",
+          "settings": {
+            "label": "The Movement",
+            "threshold": 74
+          }
+        }
+      },
+      "block_order": [
+        "stage1",
+        "stage2",
+        "stage3",
+        "stage4"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
-        "frame_prefix": "daytona-frame-",
+        "frame_prefix": "daytona-dark-frame-",
         "frame_count": 192,
         "scroll_length": 500,
         "eyebrow": "The Daytona, Reimagined",
@@ -47,22 +83,11 @@
             "link_text": "Book a call",
             "link": "/pages/book-a-call"
           }
-        },
-        "shop": {
-          "type": "path",
-          "settings": {
-            "eyebrow": "Ready Now",
-            "title": "Shop In-Stock",
-            "copy": "Available pieces, ready to ship fully insured.",
-            "link_text": "Browse in-stock",
-            "link": "/collections/in-stock"
-          }
         }
       },
       "block_order": [
         "reserve",
-        "call",
-        "shop"
+        "call"
       ],
       "settings": {
         "color_scheme": "scheme-3",
@@ -104,34 +129,6 @@
       ],
       "settings": {
         "color_scheme": "scheme-2"
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "A Few Pieces, Currently Available",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 6,
-        "columns_desktop": 3,
-        "color_scheme": "scheme-3",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "outline",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": true,
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": true,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "1",
-        "padding_top": 96,
-        "padding_bottom": 60
       }
     },
     "dealers": {
@@ -203,13 +200,24 @@
         "quote": "<p>The edge isn't luck \u2014 it's <em>access</em>. Prices that beat the market, through a real dealer network.</p>",
         "attribution": "Brandon, Zaeed Jewelers"
       }
+    },
+    "source_cta": {
+      "type": "source-cta",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "eyebrow": "No Speculative Inventory",
+        "heading": "Every piece is sourced, not simply shelved.",
+        "body": "Zaeed Jewelers doesn't stock watches hoping the right buyer finds them. Tell Brandon what you're looking for, and he sources it through a trusted dealer network \u2014 authenticated, insured, and delivered discreetly.",
+        "cta_text": "Inquire About Sourcing a Piece",
+        "cta_link": "/pages/source-a-watch"
+      }
     }
   },
   "order": [
     "hero",
     "path_cards",
     "trust",
-    "featured_collection",
+    "source_cta",
     "dealers",
     "brand_line"
   ]
